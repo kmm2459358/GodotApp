@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://btscvknpnsdvr"]
+
+[ext_resource type="Script" path="res://HUD.gd" id="1_qc7qe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n34d2"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7om8x"]
+bg_color = Color(0, 1, 0, 1)
+
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("n_health", "n_coin")]
+script = ExtResource("1_qc7qe")
+n_health = NodePath("ProgressBar")
+n_coin = NodePath("Label")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 330.0
+offset_bottom = 60.0
+theme_override_styles/background = SubResource("StyleBoxFlat_n34d2")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7om8x")
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="."]
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 70.0
+offset_bottom = 53.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 75
+text = "00"
