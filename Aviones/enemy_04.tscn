@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://bybcxdhje5r7d"]
+
+[ext_resource type="Script" path="res://enemy_04.gd" id="1_bl431"]
+[ext_resource type="Texture2D" uid="uid://tl2738iie4id" path="res://assets/image/ships/ship_0000.png" id="2_ooiqo"]
+[ext_resource type="Texture2D" uid="uid://dxce42xmrpjdj" path="res://assets/image/tiles/tile_0004.png" id="3_v4fn1"]
+[ext_resource type="Texture2D" uid="uid://8xa6x2icrw0" path="res://assets/image/tiles/tile_0005.png" id="4_jefow"]
+[ext_resource type="Texture2D" uid="uid://c5v6vbkk5cf4j" path="res://assets/image/tiles/tile_0006.png" id="5_61vag"]
+[ext_resource type="Texture2D" uid="uid://dm5jdqx51dmju" path="res://assets/image/tiles/tile_0007.png" id="6_3cdt7"]
+[ext_resource type="Texture2D" uid="uid://djrnmbqq445jo" path="res://assets/image/tiles/tile_0008.png" id="7_xtkof"]
+
+[sub_resource type="Curve2D" id="Curve2D_53p15"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, -1, -2, -39, 2, 39, 1, 157, -28, -1, 28, 1, 50, 212, 0, 0, 0, 0, 95, 162, -33, -7, 33, 7, 142, 117, 0, 0, 0, 0, 175, 160, 0, 0, 0, 0, 174, 221)
+}
+point_count = 7
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l31se"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ooiqo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_v4fn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jefow")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_61vag")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3cdt7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_xtkof")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t174y"]
+size = Vector2(24, 8)
+
+[node name="Enemy_04" type="Path2D" node_paths=PackedStringArray("n_follow", "n_area", "n_shadow", "n_anim", "n_collision") groups=["enemy"]]
+curve = SubResource("Curve2D_53p15")
+script = ExtResource("1_bl431")
+n_follow = NodePath("PathFollow2D")
+n_area = NodePath("Area2D")
+n_shadow = NodePath("Area2D/Sprite2D")
+n_anim = NodePath("Area2D/AnimatedSprite2D")
+n_collision = NodePath("Area2D/CollisionShape2D")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(0, -1)
+rotation = 1.56447
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+modulate = Color(0, 0, 0, 0.372549)
+position = Vector2(3, 3)
+texture = ExtResource("2_ooiqo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+sprite_frames = SubResource("SpriteFrames_l31se")
+animation = &"explode"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_t174y")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="animation_finished" from="Area2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

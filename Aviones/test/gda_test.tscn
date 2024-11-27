@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5j83a2e32ub8"]
+
+[ext_resource type="Script" path="res://gda_test.gd" id="1_23pqu"]
+[ext_resource type="PackedScene" uid="uid://drslcvygvm05w" path="res://gda.tscn" id="2_uufvy"]
+
+[node name="GdaTest" type="Node"]
+script = ExtResource("1_23pqu")
+
+[node name="GDA" parent="." instance=ExtResource("2_uufvy")]
